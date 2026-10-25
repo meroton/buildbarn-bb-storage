@@ -46,6 +46,12 @@ func (f Function) GetEnumValue() remoteexecution.DigestFunction_Value {
 	return f.bareFunction.enumValue
 }
 
+// GetHashLength returns the length in bytes of the hashes that are
+// contained in digests created using this digest function.
+func (f Function) GetHashLength() int {
+	return len(f.bareFunction.emptyHash) / 2
+}
+
 // NewGenerator creates a writer that may be used to compute digests of
 // newly created files.
 //

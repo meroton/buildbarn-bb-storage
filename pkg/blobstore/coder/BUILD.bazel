@@ -25,7 +25,10 @@ go_library(
 
 go_test(
     name = "coder_test",
-    srcs = ["chunk_coder_test.go"],
+    srcs = [
+        "chunk_coder_test.go",
+        "chunk_mapping_coder_test.go",
+    ],
     deps = [
         ":coder",
         "//pkg/blobstore/chunk",
