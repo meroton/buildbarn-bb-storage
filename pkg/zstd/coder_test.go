@@ -125,10 +125,12 @@ func TestEncodeAndDecodeSingleAllocation(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, data, decoded)
 
-	// The tables of the backing instances are allocated lazily based
-	// on the data that is fed through them. Warm up until they have
-	// reached their steady size.
-	for range 10 {
+	// The backing instances hold runtime.NumCPU() encoder/decoder
+	// states with lazily allocated tables. Encode() and Decode()
+	// round-robin through these states by means of a channel, so warm
+	// up one state per iteration until all of them have reached their
+	// steady size.
+	for range runtime.NumCPU() {
 		bb_zstd.Encode(data)
 		_, err := bb_zstd.Decode(compressed, len(data))
 		require.NoError(t, err)
