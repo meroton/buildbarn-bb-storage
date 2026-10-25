@@ -20,8 +20,8 @@ import (
 )
 
 var (
-	brokenChunk = &chunk.Chunk{}
-	validChunk  = &chunk.Chunk{}
+	brokenChunk = chunk.NewChunk([]byte("broken chunk"))
+	validChunk  = chunk.NewChunk([]byte("valid chunk"))
 )
 
 func TestHierarchicalCASBlobAccessGet(t *testing.T) {
